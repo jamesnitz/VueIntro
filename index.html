@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Vue Vue Zuela</title>
+    <title>Vue Mastery</title>
     <!-- Import Styles -->
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
@@ -15,14 +15,15 @@
       <div class="product-display">
         <div class="product-container">
           <div class="product-image">
-            <!-- image goes here -->
-            <!--binding to the src-->
-            <div>The image below is binded with Vue. The short hand for v-bind is `:`</div>
-            <div>Learn More <a :href="url" target="_blank">Here</a></div>
-            <img :src="image" />
+            <img v-bind:src="image">
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
+            <div><a :href="cheatUrl" target="_blank">Cheat Sheet</a></div>
+            <p v-if="inventory > 10">In Stock: {{inventory}}</p>
+            <p v-if="onSale">10% off while supplies last!</p>
+            <p v-else-if="inventory <=10 && inventory > 0">Almost sold out!</p>
+            <p v-else>Out of Stock</p>
           </div>
         </div>
       </div>

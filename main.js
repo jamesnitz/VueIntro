@@ -3,7 +3,9 @@ const app = Vue.createApp({
         return {
             product: 'Socks',
             image: './assets/images/socks_blue.jpg',
-            url: 'https://www.vuemastery.com/pdf/Vue-Essentials-Cheat-Sheet.pdf'
+            inventory: 100,
+            onSale: true,
+            cheatUrl: 'https://www.vuemastery.com/pdf/Vue-Essentials-Cheat-Sheet.pdf'
         }
     }
 })
