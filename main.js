@@ -1,8 +1,9 @@
 const app = Vue.createApp({
-  data: function() {
-    return {
-      product: 'Socks',
-      description: 'Smart wool is best wool'
+    data() {
+        return {
+            product: 'Socks',
+            image: './assets/images/socks_blue.jpg',
+            url: 'https://www.vuemastery.com/pdf/Vue-Essentials-Cheat-Sheet.pdf'
+        }
     }
-  }
 })
