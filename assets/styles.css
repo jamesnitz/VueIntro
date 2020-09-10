@@ -5,7 +5,6 @@ body {
   color: #282828;
 }
 
-
 .button {
   margin: 30px;
   background-color: #39495c;
@@ -21,6 +20,7 @@ body {
   text-align: center;
   cursor: pointer;
 }
+
 .clearButton {
   margin: 30px;
   background-color: #613838;
@@ -36,6 +36,7 @@ body {
   text-align: center;
   cursor: pointer;
 }
+
 .cart {
   margin: 25px 100px;
   float: right;
@@ -47,6 +48,8 @@ body {
   box-shadow: 2px 15px -12px rgba(0, 0, 0, 0.57);
 }
 
+
+
 .color-circle {
   width: 50px;
   height: 50px;
@@ -54,7 +57,6 @@ body {
   border: 2px solid #d8d8d8;
   border-radius: 50%;
 }
-
 
 .disabledButton {
   background-color: #d8d8d8;
@@ -179,6 +181,8 @@ textarea {
 ul {
   list-style-type: none;
 }
+
+
 
 @media only screen and (max-width: 600px) {
   .container {

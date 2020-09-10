@@ -4,7 +4,7 @@ const appVue = Vue.createApp({
             cart: 0,
             product: 'Socks',
             image: './assets/images/socks_blue.jpg',  
-            inventory: 100,
+            inventory: 10,
             onSale: true,
             cheatUrl: 'https://www.vuemastery.com/pdf/Vue-Essentials-Cheat-Sheet.pdf',
             details: ['50% cotton', '30% wool', '20% polyester'],
@@ -21,7 +21,7 @@ const appVue = Vue.createApp({
         this.inventory--
       },
       clearCart(cartCount) {
-        this.cart -= cartCount
+        this.cart= 0
         this.inventory += cartCount
       },
       updateImage(variantImage) {
