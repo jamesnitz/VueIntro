@@ -12,48 +12,60 @@
     <div id="app">
       <div class="nav-bar"></div>
 
-      <div class="cart">Cart({{ cart }})</div>
+      <div class="cart">Cart({{ cartTotal }})</div>
       
       <div class="product-display">
         <div class="product-container">
           <div class="product-image">
             <!-- class binding with ternary operators -->
             <img v-bind:src="image"
-              :class="[inventory < 1 ? 'out-of-stock-img': '']">
+              :class="[!inStock ? 'out-of-stock-img': '']">
           </div>
           <div class="product-info">
-            <h1>{{ product }}</h1>
+            <h1>{{ title }}</h1>
             <!-- attribute binding and practicing conditionals -->
             <div><a :href="cheatUrl" target="_blank">Cheat Sheet</a></div>
-            <p v-if="inventory >= 1">In Stock: {{inventory}} left</p>
+            <p v-if="inStock">In Stock: {{variants[selectedVariant].quantity}} left</p>
             <p v-else>Out of Stock</p>
             <p v-if="onSale">10% off while supplies last!</p>
-            <div>Ingredients:</div>
-            <ul>
-              <!-- iterating the details array and also accessing the index -->
-              <!-- give each dom element a unique key a la react -->
-              <li v-for="(detail, index) in details" :key="index">{{detail}}</li>
-            </ul>
+            <div class="product-details">
+              <div>
+                <div>Ingredients:</div>
+                <ul>
+                  <!-- iterating the details array and also accessing the index -->
+                  <!-- give each dom element a unique key a la react -->
+                  <li v-for="(detail, index) in details" :key="index">{{detail}}</li>
+                </ul>
+              </div>
+              <div>
+                <div>Sizes:</div>
+                <ul>
+                  <!-- iterating the details array and also accessing the index -->
+                  <!-- give each dom element a unique key a la react -->
+                  <li v-for="(size, index) in sizes" :key="index">{{size}}</li>
+                </ul>
+              </div>
+            </div>
             <div>Available colors:</div>
             <ul>
               <li
-                v-for="variant in variants" 
+                v-for="(variant, index) in variants" 
                 :key="variant.id" 
                 class="color-circle"
-                @mouseover="updateImage(variant.image)"
+                @mouseover="updateVariant(index)"
                 :style="{backgroundColor: variant.color}">
               </li>
             </ul>
             <button
               class="button"
-              :class="{ disabledButton: inventory < 1 }"
-              :disabled="inventory < 1"
-              @click="addToCart">
-              {{inventory >= 1 ? 'Add to Cart': 'We empty'}}
+              :class="{ disabledButton: !inStock}"
+              :disabled="!inStock"
+              @click="addToCart(variants[selectedVariant].color)">
+              {{inStock ? 'Add to Cart': 'We empty'}}
             </button>
             <button 
               class="clearButton" 
-              @click="clearCart(cart)">
+              @click="clearCart()">
               Clear cart
             </button>
           </div>
