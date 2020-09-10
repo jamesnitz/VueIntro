@@ -11,70 +11,15 @@
   <body>
     <div id="app">
       <div class="nav-bar"></div>
-
       <div class="cart">Cart({{ cartTotal }})</div>
-      
-      <div class="product-display">
-        <div class="product-container">
-          <div class="product-image">
-            <!-- class binding with ternary operators -->
-            <img v-bind:src="image"
-              :class="[!inStock ? 'out-of-stock-img': '']">
-          </div>
-          <div class="product-info">
-            <h1>{{ title }}</h1>
-            <!-- attribute binding and practicing conditionals -->
-            <div><a :href="cheatUrl" target="_blank">Cheat Sheet</a></div>
-            <p v-if="inStock">In Stock: {{variants[selectedVariant].quantity}} left</p>
-            <p v-else>Out of Stock</p>
-            <p v-if="onSale">10% off while supplies last!</p>
-            <div class="product-details">
-              <div>
-                <div>Ingredients:</div>
-                <ul>
-                  <!-- iterating the details array and also accessing the index -->
-                  <!-- give each dom element a unique key a la react -->
-                  <li v-for="(detail, index) in details" :key="index">{{detail}}</li>
-                </ul>
-              </div>
-              <div>
-                <div>Sizes:</div>
-                <ul>
-                  <!-- iterating the details array and also accessing the index -->
-                  <!-- give each dom element a unique key a la react -->
-                  <li v-for="(size, index) in sizes" :key="index">{{size}}</li>
-                </ul>
-              </div>
-            </div>
-            <div>Available colors:</div>
-            <ul>
-              <li
-                v-for="(variant, index) in variants" 
-                :key="variant.id" 
-                class="color-circle"
-                @mouseover="updateVariant(index)"
-                :style="{backgroundColor: variant.color}">
-              </li>
-            </ul>
-            <button
-              class="button"
-              :class="{ disabledButton: !inStock}"
-              :disabled="!inStock"
-              @click="addToCart(variants[selectedVariant].color)">
-              {{inStock ? 'Add to Cart': 'We empty'}}
-            </button>
-            <button 
-              class="clearButton" 
-              @click="clearCart()">
-              Clear cart
-            </button>
-          </div>
-        </div>
-      </div>
+      <product-display :premium="premium" :cart="cart" @clear-from-cart="clearCart"  @add-to-cart="updateCart"></product-display>
     </div>
 
     <!-- Import App -->
     <script src="./main.js"></script>
+    <!-- Import component -->
+    <script src="./components/ProductDisplay.js"></script>
+    <script src="./components/ProductDetails.js"></script>
 
     <!-- Mount App -->
     <script>
