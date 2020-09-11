@@ -129,7 +129,7 @@ appVue.component('product-display', {
        image() {
 
          if (this.variants.length === 0) {
-           return null
+           return "./assets/images/loading.gif"
          }
          return this.variants[this.selectedVariant].image
        },
