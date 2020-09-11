@@ -51,11 +51,7 @@ appVue.component('product-display', {
              </button>
           </div>
         </div>
-         <button 
-               class="clearButton" 
-               @click="getReviews()">
-               show Reviews
-             </button>
+      
         <review-list  :reviews="reviews"></review-list>
         <review-form @review-submitted="addReview"></review-form>
       </div>`,
@@ -101,6 +97,9 @@ appVue.component('product-display', {
       addReview(review) {
         this.reviews.push(review)
       }
+    },
+    beforeMount(){
+      this.getReviews()
     },
     computed: {
       title() {
