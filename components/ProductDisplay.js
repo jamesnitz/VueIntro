@@ -51,7 +51,12 @@ appVue.component('product-display', {
              </button>
           </div>
         </div>
-        <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+         <button 
+               class="clearButton" 
+               @click="getReviews()">
+               show Reviews
+             </button>
+        <review-list  :reviews="reviews"></review-list>
         <review-form @review-submitted="addReview"></review-form>
       </div>`,
         data() {
@@ -74,6 +79,14 @@ appVue.component('product-display', {
       addToCart() {
         this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         this.variants[this.selectedVariant].quantity--
+      },
+      getReviews() {
+        console.log("heard")
+        fetch('http://localhost:3000/reviews')
+          .then(res => res.json())
+          .then(parsedReviews => {
+        this.reviews = parsedReviews
+        })
       },
       clearCart() {
         for (let item of this.cart) {
