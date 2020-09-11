@@ -17,6 +17,8 @@ appVue.component('review-list', {
         "{{review.review}}"
         <br/>
         Would you recommend this: {{review.recommend}}
+        <br/>
+        <br/>
       </li>
       </ul>
     </div>

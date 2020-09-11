@@ -25,7 +25,7 @@ appVue.component('product-details', {
       <ul>
         <!-- iterating the details array and also accessing the index -->
         <!-- give each dom element a unique key a la react -->
-        <li v-for="(size, index) in sizes" :key="index">{{size}}</li>
+        <li v-for="(size) in sizes" :key="id">{{size.fit}}</li>
       </ul>
     </div>
   </div>`

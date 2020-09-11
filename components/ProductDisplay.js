@@ -52,8 +52,8 @@ appVue.component('product-display', {
           </div>
         </div>
       
-        <review-list  :reviews="reviews"></review-list>
-        <review-form @review-submitted="addReview"></review-form>
+        <review-list :reviews="reviews"></review-list>
+        <review-form :reviews="reviews" @review-submitted="addReview"></review-form>
       </div>`,
         data() {
         return {
@@ -67,8 +67,9 @@ appVue.component('product-display', {
               { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
               { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 4 },
             ],
-            sizes: ['Small', 'Shmedium', 'Sizeable'],
-            reviews: []
+            sizes: [],
+            reviews: [],
+            idToEdit: 0
         }
     },
     methods: {
@@ -76,12 +77,24 @@ appVue.component('product-display', {
         this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         this.variants[this.selectedVariant].quantity--
       },
+      setIdToEdit(id) {
+        console.log("yup", id)
+        idToEdit = id
+      },
       getReviews() {
         console.log("heard")
-        fetch('http://localhost:3000/reviews')
+        return fetch('http://localhost:3000/reviews')
           .then(res => res.json())
           .then(parsedReviews => {
         this.reviews = parsedReviews
+        })
+      },
+      getSizes() {
+        console.log("heard")
+        fetch('http://localhost:3000/sizes')
+          .then(res => res.json())
+          .then(parsedSizes => {
+        this.sizes = parsedSizes
         })
       },
       clearCart() {
@@ -95,11 +108,19 @@ appVue.component('product-display', {
          this.selectedVariant = index
       },
       addReview(review) {
-        this.reviews.push(review)
+        return fetch('http://localhost:3000/reviews', {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json"
+          },
+          body: JSON.stringify(review)
+        })
+        .then(this.getReviews)
       }
     },
     beforeMount(){
       this.getReviews()
+      this.getSizes()
     },
     computed: {
       title() {

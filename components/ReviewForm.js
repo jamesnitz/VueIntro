@@ -1,4 +1,8 @@
 appVue.component('review-form', {
+  props: {
+    reviews:  {
+      type: Array
+    },  },
   template:
   /*html*/
   `<form class="review-form" @submit.prevent="onSubmit">
