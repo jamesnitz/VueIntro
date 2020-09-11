@@ -63,13 +63,9 @@ appVue.component('product-display', {
             onSale: true,
             cheatUrl: 'https://www.vuemastery.com/pdf/Vue-Essentials-Cheat-Sheet.pdf',
             details: ['50% cotton', '30% wool', '20% polyester'],
-            variants: [
-              { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
-              { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 4 },
-            ],
+            variants: [],
             sizes: [],
-            reviews: [],
-            idToEdit: 0
+            reviews: []
         }
     },
     methods: {
@@ -77,21 +73,24 @@ appVue.component('product-display', {
         this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         this.variants[this.selectedVariant].quantity--
       },
-      setIdToEdit(id) {
-        console.log("yup", id)
-        idToEdit = id
-      },
       getReviews() {
-        console.log("heard")
         return fetch('http://localhost:3000/reviews')
           .then(res => res.json())
           .then(parsedReviews => {
         this.reviews = parsedReviews
         })
       },
+      getSocks() {
+        return fetch('http://localhost:3000/socks')
+          .then(res => res.json())
+          .then(parsedSocks => {
+        this.variants = parsedSocks
+        console.log(this.variants)
+        debugger
+        })
+      },
       getSizes() {
-        console.log("heard")
-        fetch('http://localhost:3000/sizes')
+        return fetch('http://localhost:3000/sizes')
           .then(res => res.json())
           .then(parsedSizes => {
         this.sizes = parsedSizes
@@ -119,19 +118,27 @@ appVue.component('product-display', {
       }
     },
     beforeMount(){
+      this.getSocks()
       this.getReviews()
       this.getSizes()
     },
     computed: {
       title() {
         return this.brand + ' ' + this.product
-      },
-      image() {
-        return this.variants[this.selectedVariant].image
-      },
+       },
+       image() {
+
+         if (this.variants.length === 0) {
+           return null
+         }
+         return this.variants[this.selectedVariant].image
+       },
       inStock() {
-        return this.variants[this.selectedVariant].quantity
-      },
+        if (this.variants.length === 0) {
+          return null
+        }
+         return this.variants[this.selectedVariant].quantity
+       },
       shipping() {
         if (this.premium) {
           return 'Free'
